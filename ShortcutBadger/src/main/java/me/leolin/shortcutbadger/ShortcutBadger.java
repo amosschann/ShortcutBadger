@@ -202,32 +202,32 @@ public final class ShortcutBadger {
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-
-        //Turns out framework does not guarantee to put DEFAULT Activity on top of the list.
-        ResolveInfo resolveInfoDefault = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        validateInfoList(resolveInfoDefault, resolveInfos);
-
-        for (ResolveInfo resolveInfo : resolveInfos) {
-            String currentHomePackage = resolveInfo.activityInfo.packageName;
-
-            for (Class<? extends Badger> badger : BADGERS) {
-                Badger shortcutBadger = null;
-                try {
-                    shortcutBadger = badger.newInstance();
-                } catch (Exception ignored) {
-                }
-                if (shortcutBadger != null && shortcutBadger.getSupportLaunchers().contains(currentHomePackage)) {
-                    if (isLauncherVersionSupported(context, currentHomePackage)) {
-                        sShortcutBadger = shortcutBadger;
-                    }
-                    break;
-                }
-            }
-            if (sShortcutBadger != null) {
-                break;
-            }
-        }
+//        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+//
+//        //Turns out framework does not guarantee to put DEFAULT Activity on top of the list.
+//        ResolveInfo resolveInfoDefault = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+//        validateInfoList(resolveInfoDefault, resolveInfos);
+//
+//        for (ResolveInfo resolveInfo : resolveInfos) {
+//            String currentHomePackage = resolveInfo.activityInfo.packageName;
+//
+//            for (Class<? extends Badger> badger : BADGERS) {
+//                Badger shortcutBadger = null;
+//                try {
+//                    shortcutBadger = badger.newInstance();
+//                } catch (Exception ignored) {
+//                }
+//                if (shortcutBadger != null && shortcutBadger.getSupportLaunchers().contains(currentHomePackage)) {
+//                    if (isLauncherVersionSupported(context, currentHomePackage)) {
+//                        sShortcutBadger = shortcutBadger;
+//                    }
+//                    break;
+//                }
+//            }
+//            if (sShortcutBadger != null) {
+//                break;
+//            }
+//        }
 
         if (sShortcutBadger == null) {
             if (Build.MANUFACTURER.equalsIgnoreCase("ZUK"))
@@ -238,6 +238,8 @@ public final class ShortcutBadger {
                 sShortcutBadger = new VivoHomeBadger();
             else if (Build.MANUFACTURER.equalsIgnoreCase("ZTE"))
                 sShortcutBadger = new ZTEHomeBadger();
+            else if (Build.MANUFACTURER.equalsIgnoreCase("HUAWEI"))
+                sShortcutBadger = new HuaweiHomeBadger();
             else
                 sShortcutBadger = new DefaultBadger();
         }
