@@ -241,6 +241,8 @@ public final class ShortcutBadger {
                 sShortcutBadger = new ZTEHomeBadger();
             else if (Build.MANUFACTURER.equalsIgnoreCase("HUAWEI"))
                 sShortcutBadger = new HuaweiHomeBadger();
+            else if (Build.MANUFACTURER.equalsIgnoreCase("HONOR"))
+                sShortcutBadger = new HonorHomeBadger();
             else
                 sShortcutBadger = new DefaultBadger();
         }
