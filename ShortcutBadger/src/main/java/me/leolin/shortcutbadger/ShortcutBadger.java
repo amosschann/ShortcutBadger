@@ -14,22 +14,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.leolin.shortcutbadger.impl.AdwHomeBadger;
-import me.leolin.shortcutbadger.impl.ApexHomeBadger;
-import me.leolin.shortcutbadger.impl.AsusHomeBadger;
-import me.leolin.shortcutbadger.impl.DefaultBadger;
-import me.leolin.shortcutbadger.impl.EverythingMeHomeBadger;
-import me.leolin.shortcutbadger.impl.HonorHomeBadger;
-import me.leolin.shortcutbadger.impl.HuaweiHomeBadger;
-import me.leolin.shortcutbadger.impl.NewHtcHomeBadger;
-import me.leolin.shortcutbadger.impl.NovaHomeBadger;
-import me.leolin.shortcutbadger.impl.OPPOHomeBader;
-import me.leolin.shortcutbadger.impl.SamsungHomeBadger;
-import me.leolin.shortcutbadger.impl.SonyHomeBadger;
-import me.leolin.shortcutbadger.impl.VivoHomeBadger;
-import me.leolin.shortcutbadger.impl.YandexLauncherBadger;
-import me.leolin.shortcutbadger.impl.ZTEHomeBadger;
-import me.leolin.shortcutbadger.impl.ZukHomeBadger;
+import me.leolin.shortcutbadger.impl.*;
 
 
 /**
@@ -62,6 +47,7 @@ public final class ShortcutBadger {
         BADGERS.add(ZTEHomeBadger.class);
         BADGERS.add(EverythingMeHomeBadger.class);
         BADGERS.add(YandexLauncherBadger.class);
+        BADGERS.add(XiaomiHomeBadger.class);
     }
 
     private static Badger sShortcutBadger;
@@ -231,6 +217,7 @@ public final class ShortcutBadger {
 //        }
 
         if (sShortcutBadger == null) {
+            Log.i(LOG_TAG, "PLATFORM MANUFACTURER = " + Build.MANUFACTURER);
             if (Build.MANUFACTURER.equalsIgnoreCase("ZUK"))
                 sShortcutBadger = new ZukHomeBadger();
             else if (Build.MANUFACTURER.equalsIgnoreCase("OPPO"))
@@ -243,6 +230,8 @@ public final class ShortcutBadger {
                 sShortcutBadger = new HuaweiHomeBadger();
             else if (Build.MANUFACTURER.equalsIgnoreCase("HONOR"))
                 sShortcutBadger = new HonorHomeBadger();
+            else if (Build.MANUFACTURER.equalsIgnoreCase("XIAOMI"))
+                sShortcutBadger = new XiaomiHomeBadger();
             else
                 sShortcutBadger = new DefaultBadger();
         }
